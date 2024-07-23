@@ -37,27 +37,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     { 
-         $validated= $request->validate([
-                'email'=> 'required|string|max:255',
-                'password' => 'required|string',
-                'remember' => 'required|string',
-                
-            ]);
-    
-            DB::beginTransaction();
-            try{
-                
-    
-                $newProject =AuthenticatedSession::create($validated);
-    
-                DB::commit();
-                return redirect()->route('admin.projects.index')->with('succes', 'Project Created Succesfully');
-            }
-            catch(\Exception $e){
-                DB::rollBack();
-    
-                return redirect()->back()->with('error', 'System eror'.$e->getMessage());
+        $validated = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->has('remember'))) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard.index')->with('success', 'You are logged in successfully.');
         }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email'); 
     
     }
 
@@ -88,9 +81,15 @@ class AuthenticatedSessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AuthenticatedSession $authenticatedSession)
+    public function destroy(Request $request)
     {
-        //
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 
     public function register(){

@@ -22,6 +22,7 @@
 
   <x-navbar/>
   <!-- /.navbar -->
+  
 
   <!-- Main Sidebar Container -->
   <x-sidebar/>
@@ -38,8 +39,13 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Layout</a></li>
-              <li class="breadcrumb-item active">Fixed Layout</li>
+              <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                  @csrf
+                  <button type="submit" class="btn btn-default btn-flat">Logout</button>
+                </form>
+              </li>
+              
             </ol>
           </div>
         </div>

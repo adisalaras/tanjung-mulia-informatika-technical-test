@@ -31,21 +31,21 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#">
+                        {{-- <a class="btn btn-primary btn-sm" href="#">
                             <i class="fas fa-folder">
                             </i>
                                 View
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#">
+                        </a> --}}
+                        <a class="btn btn-info btn-sm" href="{{ route('user.edit', $user->id) }}">
                             <i class="fas fa-pencil-alt">
                             </i>
                                 Edit
                         </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                                Delete
-                        </a>
+                        <form action="{{ route('user.destroy', $user) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @empty

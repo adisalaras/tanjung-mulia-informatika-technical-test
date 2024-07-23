@@ -1,66 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tanjung Mulia Informatika Technical Test
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Laravel 11 application using Admin LTE v3, MySQL 8, and Tailwind CSS. It includes features for user authentication, a dashboard, and the ability for users to upload multiple posts.
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Prerequisites
+- PHP 8.0 or higher
+- Composer
+- Node.js & npm
+- MySQL 8
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Steps
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/tanjung-mulia-informatika-technical-test.git
+    cd tanjung-mulia-informatika-technical-test
+    ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. Install PHP dependencies:
+    ```sh
+    composer install
+    ```
 
-## Learning Laravel
+3. Install Node dependencies:
+    ```sh
+    npm install
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. Copy `.env.example` to `.env` and configure your database settings:
+    ```sh
+    cp .env.example .env
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5. Generate application key:
+    ```sh
+    php artisan key:generate
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+6. Run database migrations:
+    ```sh
+    php artisan migrate
+    ```
 
-## Laravel Sponsors
+7. Serve the application:
+    ```sh
+    php artisan serve
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Features
+- User Authentication (Login, Register, Logout)
+- Dashboard
+- Post Management (CRUD)
+- Users can upload multiple posts
 
-### Premium Partners
+## Usage
+1. Register a new user or log in with an existing account.
+2. Access the dashboard to manage posts.
+3. Upload, edit, or delete posts.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## ERD
+```mermaid
+erDiagram
+    USERS {
+        int id
+        string name
+        string email
+        string password
+    }
+    POSTS {
+        int id
+        string image
+        string caption
+        int user_id
+    }
+    DASHBOARDS {
+        int id
+        int user_id
+    }
+    USERS ||--o{ POSTS : "has"
+    USERS ||--o{ DASHBOARDS : "has"
+    POSTS ||--|{ DASHBOARDS : "belongs to"
+```
+
+## Flowchart
+```mermaid
+flowchart TD
+    Start --> |User Authentication| A[Login]
+    A --> |Success| B[Dashboard]
+    B --> |Manage Posts| C[Add Post]
+    B --> |Manage Posts| D[Edit Post]
+    B --> |Manage Posts| E[Delete Post]
+    C --> End
+    D --> End
+    E --> End
+    A --> |Fail| F[Register]
+    F --> B
+    End
+```
+
+
+## Activity Diagram
+```mermaid
+sequenceDiagram
+    participant User
+    participant System
+
+    User->>System: Register
+    System-->>User: Registration Form
+    User->>System: Submit Registration
+    System-->>User: Registration Success
+
+    User->>System: Login
+    System-->>User: Login Form
+    User->>System: Submit Login
+    System-->>User: Login Success
+
+    User->>System: View Dashboard
+    System-->>User: Display Dashboard
+
+    User->>System: Add Post
+    System-->>User: Add Post Form
+    User->>System: Submit Post
+    System-->>User: Post Added
+
+    User->>System: Edit Post
+    System-->>User: Edit Post Form
+    User->>System: Submit Post
+    System-->>User: Post Updated
+
+    User->>System: Delete Post
+    System-->>User: Confirm Delete
+    User->>System: Confirm
+    System-->>User: Post Deleted
+```
 
 ## Contributing
+This project is for demonstration and technical test purposes. However, feedback and suggestions are welcome.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Contact
+Adisa Laras Pertiwi - adisalaras41@gmail.com

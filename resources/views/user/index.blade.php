@@ -1,1 +1,7 @@
-daftar pengguna yang berhasil register
+
+@extends('layouts/app')
+@section('title', 'Buku')
+
+@section('content')
+
+@endsection

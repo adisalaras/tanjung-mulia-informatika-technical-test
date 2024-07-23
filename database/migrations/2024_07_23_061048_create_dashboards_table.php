@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password_reset_link_controllers', function (Blueprint $table) {
+        Schema::create('dashboards', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_link_controllers');
+        Schema::dropIfExists('dashboards');
     }
 };

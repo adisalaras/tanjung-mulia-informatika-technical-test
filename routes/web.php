@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Models\NewPasswordController;
 use App\Models\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +32,8 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 
     
     Route::post('/register/store', [AuthenticatedSessionController::class, 'storeRegister'])->name('register.store');
+
+    route::resource('user', UserController::class);
+    route::resource('dashboard', DashboardController::class);
+
 

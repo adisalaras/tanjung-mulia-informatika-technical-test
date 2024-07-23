@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PasswordResetLinkController;
 use Illuminate\Http\Request;
 
-class PasswordResetLinkControllerController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class PasswordResetLinkControllerController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.index');
     }
 
     /**
@@ -34,7 +33,7 @@ class PasswordResetLinkControllerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PasswordResetLinkController $passwordResetLinkController)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +41,7 @@ class PasswordResetLinkControllerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PasswordResetLinkController $passwordResetLinkController)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +49,7 @@ class PasswordResetLinkControllerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PasswordResetLinkController $passwordResetLinkController)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +57,7 @@ class PasswordResetLinkControllerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PasswordResetLinkController $passwordResetLinkController)
+    public function destroy(string $id)
     {
         //
     }

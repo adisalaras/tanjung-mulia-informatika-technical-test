@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\AuthenticatedSession;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PharIo\Manifest\Email;
+use App\Http\Controllers\Rules\Password;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -95,10 +100,9 @@ class AuthenticatedSessionController extends Controller
     public function storeRegister(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'terms' => 'accepted',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user = User::create([
@@ -107,7 +111,10 @@ class AuthenticatedSessionController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Login the user
-        auth()->login($user);
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect()->route('dashboard.index');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\NewPasswordController;
 use App\Models\PasswordResetLinkController;
@@ -27,5 +28,6 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
     Route::middleware(['auth'])->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('dashboard', DashboardController::class);
+        Route::resource('post', PostController::class);
     });
 

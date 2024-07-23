@@ -4,47 +4,47 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Daftar Buku</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <!-- Tabel DataTables -->
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Aksi</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($users as $user)
-                <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td class="project-actions text-right">
-                        <a class="btn btn-info btn-sm" href="{{ route('user.edit', $user) }}">
-                            <i class="fas fa-pencil-alt"></i>
-                            Edit
-                        </a>
-                        <form action="{{ route('user.destroy', $user) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center">Belum Ada user</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    <!-- /.card-body -->
+    @section('page', 'Post')
+</div>
+<a href="{{ route('post.create') }}" class="btn btn-success">Tambah Post</a>
+<!-- /.card-header -->
+<div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Caption</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($posts as $post)
+            <tr>
+                <td><img src="{{ Storage::url($post->image) }}" alt="Post Image" class="object-cover w-[120px] h-90px rounded-2xl"></td>
+                <td>{{ $post->caption }}</td>
+                <td>{{ $post->user->name }}</td>
+                <td class="project-actions text-right">
+                    <a class="btn btn-info btn-sm" href="{{ route('post.edit', $post->id) }}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </a>
+                    <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="4" class="text-center">Belum Ada post</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+<!-- /.card-body -->
 </div>
 
 <!-- Memuat skrip-skrip yang diperlukan -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +13,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $userCount = User::count();
+        
+        // Kirimkan data ke view
+        return view('dashboard.index', compact('userCount'));
     }
 
     /**

@@ -10,8 +10,8 @@
         <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">Users</span>
-          <span class="info-box-number">1,41</span>
+          <span class="info-box-text">Total Users</span>
+          <span class="info-box-number">{{ $userCount }}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
